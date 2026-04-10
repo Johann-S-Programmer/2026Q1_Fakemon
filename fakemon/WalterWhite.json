@@ -45,8 +45,8 @@
       "desc": "Restore 20 to 30 HP.",
       "speed": "fast",
       "damage": [-25, -30],
-      "status": "Stat up",
-      "statusChance": 0.15
+      "status": "statup",
+      "statusChance": 0.20
     },
  
     {
@@ -55,7 +55,7 @@
       "desc": "Im suing you...",
       "speed": "slow",
       "damage": [-5, -10],
-      "status": "Stat down",
+      "status": "statdwn",
       "statusChance": 1.0
     }
 
