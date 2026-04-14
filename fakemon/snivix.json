@@ -3,8 +3,8 @@
   "name":        "Snivix",
   "createdBy":   "Milo Reinhold",
   "emoji":       "🍃",
-  "type":        "nature",
-  "description": "A fast but low HP bild withhigh damage moves.",
+  "type":        "Nature",
+  "description": "A fast but low HP build with high damage moves.",
   "hp":       20,
   "power":    110,
   "speed":    120,
@@ -16,10 +16,10 @@
       "id":           "poisonscratch",
       "name":         "☠️ Poison Scratch",
       "desc":         "A poisonous scratch.",
-      "speed":        "high",
+      "speed":        "fast",
       "damage": [10, 60],
       "status":       "poison",
-      "statusChance": 80
+      "statusChance": .80
     },
     {
       "id":           "potassiampoisoning",
@@ -27,8 +27,8 @@
       "desc":         "You stuff 135,000 bananas down your opponents throat.",
       "speed":        "medium",
       "damage": [1, 1000000000000000],
-      "status":       "paralyzed",
-      "statusChance": 1
+      "status":       "paralyze",
+      "statusChance": 0.99
     },
     {
       "id":           "popastim",
@@ -42,11 +42,11 @@
     {
       "id":           "saveyourstrength",
       "name":         "📈 Eat a Banana",
-      "desc":         "Sharply raises your own ATK.",
+      "desc":         "Bananae=big boy.",
       "speed":        "fast",
       "damage": [0, 0],
       "status":       "statup",
-      "statusChance": 1.0,
+      "statusChance": 0.99,
       "statTarget":   "defense"
     },
     {
@@ -56,17 +56,17 @@
       "speed":        "fast",
       "damage": [0, 100],
       "status":       "statdwn",
-      "statusChance": 1.0,
+      "statusChance": 0.99,
       "statTarget":   "speed"
     },
     {
       "id":    "damage",
       "name":  "😵 Emotional Damage",
-      "desc":  "Ethan noooooooooooo",
+      "desc":  "Emotional Damage!",
       "speed": "medium",
       "damage": [10, 10],
       "statuses": [
-        { "status": "paralyzed",  "statusChance": 1 },
+        { "status": "paralyze",  "statusChance": 0.9 },
         { "status": "confuse", "statusChance": 0.9 }
       ]
     }
