@@ -47,7 +47,7 @@
       "damage": [0, 0],
       "status":       "statup",
       "statusChance": 1.0,
-      "statTarget":   "def"
+      "statTarget":   "defense"
     }
 
   ]
