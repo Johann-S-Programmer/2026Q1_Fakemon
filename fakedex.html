@@ -354,7 +354,7 @@ function escHtmlDebug(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
-function shortName(name, len = 3) {
+function shortName(name, len = 36) {
   if (!name) return '???';
   if (name.length <= len) return name;
   return name.slice(0, len) + '\u2026';
