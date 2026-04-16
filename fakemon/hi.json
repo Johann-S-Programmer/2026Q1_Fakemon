@@ -1,5 +1,5 @@
 {
-  "id":          "🪔",
+  "id":          "hi",
   "name":        "mei-un lamp",
   "createdBy":   "Liam Johnson",
   "emoji":       "🪔",
@@ -52,7 +52,7 @@
     {
       "id":           "move_five",
       "name":         "📉 get some ATK",
-      "desc":         "??!'";/<).",
+      "desc":         "??!';/<).",
       "speed":        "fast",
       "damage": [0, 100],
       "status":       "statdwn",
