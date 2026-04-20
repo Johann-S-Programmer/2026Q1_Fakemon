@@ -3,7 +3,7 @@
   "name": "Femboy",
   "createdBy": "Benjamin John Bero Alcantara",
   "emoji": "UWU",
-  "type": "Posion",
+  "type": "Poison",
 
   "hp": 100,
   "power": 30,
@@ -29,7 +29,7 @@
       "id": "Strangle",
       "name": "Sock strangle",
       "desc": "Strangling using a thigh high.",
-      "speed": "med",
+      "speed": "medium",
       "damage": [20, 25],
       "status": "sleep",
       "statusChance": 1.0
