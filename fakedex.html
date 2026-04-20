@@ -165,6 +165,19 @@ h1 {
   font-family: var(--px); font-size: 7px; color: #333355; letter-spacing: 1px;
 }
 .gc-emoji { font-size: 42px; display: block; margin-bottom: 10px; line-height: 1; }
+.gc-img {
+  width: 52px; height: 52px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 10px;
+  image-rendering: pixelated;
+}
+.modal-img {
+  width: 80px; height: 80px;
+  object-fit: contain;
+  display: block;
+  image-rendering: pixelated;
+}
 .gc-name  { font-family: var(--px); font-size: 7px; color: var(--text); margin-bottom: 6px; letter-spacing: 1px; }
 .gc-type  { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; display: inline-block; margin-bottom: 6px; }
 .gc-author { font-size: 9px; color: #444466; margin-top: 4px; }
@@ -354,7 +367,7 @@ function escHtmlDebug(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
-function shortName(name, len = 3) {
+function shortName(name, len = 36) {
   if (!name) return '???';
   if (name.length <= len) return name;
   return name.slice(0, len) + '\u2026';
@@ -444,8 +457,17 @@ async function loadAll() {
 
     if (good.length > 0) {
       const sorted = [...good].sort((a,b) => b._power - a._power);
-      dlog(`Power ranking: ${sorted.map(e => `${shortName(e.name,3)}=${e._power}`).join(' > ')}`, 'score');
+      dlog(`Power ranking: ${sorted.map(e => `${shortName(e.name)}=${e._power}`).join(' > ')}`, 'score');
     }
+    // CREATORS ROSTER
+    const working = DEXDATA.filter(e => !e._error);
+    const broken  = DEXDATA.filter(e =>  e._error);
+    dlog('========================================', 'ok');
+    dlog('STUDENT CONTRIBUTORS', 'ok');
+    dlog(`  Working (${working.length}): ${working.map(e => `${e.createdBy||'?'} (${e.name})`).join(', ') || 'none'}`, 'ok');
+    dlog(`  Errored (${broken.length}): ${broken.map(e => `${e.createdBy||'?'} (${e.id})`).join(', ') || 'none'}`, broken.length > 0 ? 'warn' : 'ok');
+    dlog('========================================', 'ok');
+
     buildGallery();
   } catch (e) {
     dlog(`FATAL: ${e.message}`, 'error');
@@ -540,6 +562,19 @@ function diagnoseBadJSON(raw) {
 }
 
 // ════════════════════════════════════════════════════════════════════════
+//  IMAGE HELPER
+// ════════════════════════════════════════════════════════════════════════
+
+function dexAvatar(entry, imgClass, emojiClass) {
+  const src = `fakemon/images/${entry.id}.png`;
+  return `<span class="choice-avatar">` +
+    `<img src="${src}" class="${imgClass}" alt="${escHtmlDebug(entry.name || entry.id)}" ` +
+    `onerror="this.style.display='none';this.nextElementSibling.style.display='block'">` +
+    `<span class="${emojiClass}" style="display:none">${entry.emoji || '❓'}</span>` +
+    `</span>`;
+}
+
+// ════════════════════════════════════════════════════════════════════════
 //  GALLERY
 // ════════════════════════════════════════════════════════════════════════
 
@@ -554,7 +589,7 @@ function buildGallery() {
       card.innerHTML = `
         <span class="gc-num">#${String(entry._num).padStart(3,'0')}</span>
         <span class="gc-emoji">❌</span>
-        <div class="gc-name" title="${escHtmlDebug(entry.id)}">${shortName(entry.id, 3)}</div>
+        <div class="gc-name" title="${escHtmlDebug(entry.id)}">${shortName(entry.id)}</div>
         <div class="gc-error">⚠ Load error</div>
         <div class="gc-author" style="color: #804040;">${entry.createdBy || 'Unknown author'}</div>
       `;
@@ -562,8 +597,8 @@ function buildGallery() {
     } else {
       card.innerHTML = `
         <span class="gc-num">#${String(entry._num).padStart(3,'0')}</span>
-        <span class="gc-emoji">${entry.emoji || '❓'}</span>
-        <div class="gc-name" title="${escHtmlDebug(entry.name)}">${shortName(entry.name, 3)}</div>
+        ${dexAvatar(entry, 'gc-img', 'gc-emoji')}
+        <div class="gc-name" title="${escHtmlDebug(entry.name)}">${shortName(entry.name)}</div>
         <span class="gc-type type-${entry.type || 'Normal'}">${entry.type || 'Normal'}</span>
         <div class="gc-power">⭐ PWR ${entry._power}</div>
         <div class="gc-author">by ${entry.createdBy || 'Unknown'}</div>
@@ -686,7 +721,13 @@ function openModal(entry) {
 
   content.innerHTML = `
     <div class="modal-header">
-      <div class="modal-emoji">${entry.emoji || '❓'}</div>
+      <div class="modal-emoji">${
+        `<span class="choice-avatar">` +
+        `<img src="fakemon/images/${entry.id}.png" class="modal-img" alt="${entry.name}" ` +
+        `onerror="this.style.display='none';this.nextElementSibling.style.display='block'">` +
+        `<span style="display:none;font-size:48px">${entry.emoji || '❓'}</span>` +
+        `</span>`
+      }</div>
       <div class="modal-title">
         <div class="modal-name">${entry.name}</div>
         <div class="modal-author">by ${entry.createdBy || 'Unknown'} · <span class="gc-type type-${entry.type||'Normal'}" style="font-size:10px;">${entry.type||'Normal'}</span></div>
